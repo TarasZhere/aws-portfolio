@@ -1,11 +1,11 @@
-name: Main
+# name: Main
 
-on: [commit]
+# on: [commit]
 
-jobs:
-  Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        # deploy
+# jobs:
+#   Actions:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Check out repository
+#         uses: actions/checkout@v4
+#         # deploy
