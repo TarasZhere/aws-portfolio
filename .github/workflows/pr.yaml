@@ -1,0 +1,26 @@
+name: Pull Request Open
+
+pull_request:
+  types: [opened, reopened]
+
+jobs:
+  Actions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          cd infrastructure
+          npm ci
+
+      - name: Check formatting 
+        run: prettier --check .
