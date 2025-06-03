@@ -1,7 +1,7 @@
-import { Stack, StackProps, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
-import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
-import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
-import { Construct } from "constructs";
+import { Stack, StackProps, CfnOutput, RemovalPolicy } from 'aws-cdk-lib';
+import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment';
+import { Construct } from 'constructs';
 
 interface WebsiteProps extends StackProps {}
 
@@ -11,7 +11,7 @@ export class WebsiteStack extends Stack {
     const self: Construct = this;
 
     const s3Bucket = new Bucket(self, `${id}-bucket`, {
-      websiteIndexDocument: "index.html",
+      websiteIndexDocument: 'index.html',
 
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
@@ -27,7 +27,7 @@ export class WebsiteStack extends Stack {
     });
 
     new BucketDeployment(self, `${id}-deployment`, {
-      sources: [Source.asset("../front-end")],
+      sources: [Source.asset('../front-end')],
       destinationBucket: s3Bucket,
     });
 

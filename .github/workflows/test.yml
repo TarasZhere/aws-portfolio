@@ -1,12 +1,9 @@
-name: Pull Request Open
+name: infrastructure Test
 
-on:
-  pull_request:
-    branches: [main]
-    workflow_dispatch:
+on: workflow_call
 
 jobs:
-  Actions:
+  Infrastracture:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,3 +24,13 @@ jobs:
         run: |
           cd infrastructure
           npm run fmt-check
+      
+      - name: Snapshot Test 
+        run: |
+          cd infrastructure
+          npm run test
+
+
+
+
+

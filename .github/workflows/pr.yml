@@ -1,0 +1,10 @@
+name: Pull Request Open
+
+on:
+  pull_request:
+    branches: [main]
+    workflow_dispatch:
+
+jobs:
+  Infrastructure-Test:
+    uses: ./.github/workflows/test.yml
