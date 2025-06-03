@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  
+
 jobs:
   Infrastructure-Test:
     uses: ./.github/workflows/test.yml
