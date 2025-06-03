@@ -1,0 +1,27 @@
+name: Update Bucket
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT }}:role/${{ vars.AWS_BUCKET_NAME }}
+          aws-region: us-east-2
+
+      - name: Example AWS CLI command (e.g., S3 sync)
+        run: |
+          aws s3 sync ./front-end s3://your-s3-bucket-name --delete

@@ -12,11 +12,10 @@ export class WebsiteStack extends Stack {
 
     const s3Bucket = new Bucket(self, `${id}-bucket`, {
       websiteIndexDocument: 'index.html',
-
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       publicReadAccess: true,
-
+      bucketName: `${id}-bucket-us-east-2`,
       blockPublicAccess: new BlockPublicAccess({
         blockPublicAcls: false,
         blockPublicPolicy: false,
