@@ -24,4 +24,4 @@ jobs:
           npm ci
 
       - name: Check formatting 
-        run: prettier --check .
+        run: npm run fmt
