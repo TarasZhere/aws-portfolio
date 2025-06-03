@@ -19,9 +19,9 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT }}:role/${{ vars.AWS_BUCKET_NAME }}
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT }}:role/${{ vars.AWS_DEPLOY_ROLE }}
           aws-region: us-east-2
 
       - name: Example AWS CLI command (e.g., S3 sync)
         run: |
-          aws s3 sync ./front-end s3://your-s3-bucket-name --delete
+          aws s3 sync ./front-end s3://${{ vars.AWS_BUCKET_NAME }} --delete
