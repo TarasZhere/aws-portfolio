@@ -16,7 +16,7 @@ export class WebsiteStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       publicReadAccess: true,
-      
+
       blockPublicAccess: new BlockPublicAccess({
         blockPublicAcls: false,
         blockPublicPolicy: false,
