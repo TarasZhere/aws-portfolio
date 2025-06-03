@@ -3,7 +3,7 @@ name: infrastructure Test
 on: workflow_call
 
 jobs:
-  Test-Infrastructure:
+  Infrastracture:
     runs-on: ubuntu-latest
 
     steps:
