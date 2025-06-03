@@ -1,0 +1,36 @@
+name: infrastructure Test
+
+on: workflow_call
+
+jobs:
+  Test-Infrastructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: |
+          cd infrastructure
+          npm ci
+
+      - name: Check formatting 
+        run: |
+          cd infrastructure
+          npm run fmt-check
+      
+      - name: Snapshot Test 
+        run: |
+          cd infrastructure
+          npm run test
+
+
+
+
+
