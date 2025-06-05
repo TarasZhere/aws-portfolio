@@ -16,19 +16,16 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: |
-          cd infrastructure
-          npm ci
+        working-directory: infrastructure
+        run: npm ci
 
       - name: Check formatting 
-        run: |
-          cd infrastructure
-          npm run fmt-check
+        working-directory: infrastructure
+        run: npm run fmt-check
       
       - name: Snapshot Test 
-        run: |
-          cd infrastructure
-          npm run test
+        working-directory: infrastructure
+        run: npm run test
 
 
 
