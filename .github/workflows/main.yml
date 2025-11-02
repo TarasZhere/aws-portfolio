@@ -10,7 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  sync_bucket:
+    name: Sync bucket
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -20,7 +21,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.AWS_DEPLOY_ROLE }}
-          aws-region: us-east-2
+          aws-region: us-east-1
 
       - name: Synch Bucket
         run: |
