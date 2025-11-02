@@ -39,7 +39,7 @@ jobs:
         working-directory: infrastructure
         run: npm run test
         
-      - name: Deploy Bootstrap
+      - name: Bootstrap
         working-directory: infrastructure
         run: cdk bootstrap
         

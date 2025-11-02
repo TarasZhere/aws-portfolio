@@ -34,6 +34,7 @@ export class WebsiteStack extends Stack {
     })
 
     const s3Bucket = new Bucket(self, `${id}-bucket`, {
+      bucketName: `${id}-bucket`,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
       publicReadAccess: false,
