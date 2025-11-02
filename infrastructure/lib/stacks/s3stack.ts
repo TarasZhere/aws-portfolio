@@ -3,8 +3,15 @@ import { BlockPublicAccess, Bucket } from 'aws-cdk-lib/aws-s3'
 import { BucketDeployment, Source } from 'aws-cdk-lib/aws-s3-deployment'
 import { Construct } from 'constructs'
 import { ARecord, HostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53'
-import { Certificate, CertificateValidation } from 'aws-cdk-lib/aws-certificatemanager'
-import { Distribution, OriginAccessIdentity, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront'
+import {
+  Certificate,
+  CertificateValidation,
+} from 'aws-cdk-lib/aws-certificatemanager'
+import {
+  Distribution,
+  OriginAccessIdentity,
+  ViewerProtocolPolicy,
+} from 'aws-cdk-lib/aws-cloudfront'
 import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins'
 import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets'
 
@@ -34,13 +41,13 @@ export class WebsiteStack extends Stack {
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
     })
 
-    const oai = new OriginAccessIdentity(this, 'MySiteOAI');
-    s3Bucket.grantRead(oai);
+    const oai = new OriginAccessIdentity(this, 'MySiteOAI')
+    s3Bucket.grantRead(oai)
 
     const distribution = new Distribution(this, 'MySiteDistribution', {
       defaultBehavior: {
         origin: new S3Origin(s3Bucket, {
-          originAccessIdentity: oai
+          originAccessIdentity: oai,
         }),
         viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
