@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name=".cache">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/infrastructure/cdk.out/.cache/923948c7d31d4ae16c9910deb130278792bf7e4d7517edb33a09d294104c883c.zip!/" />
+      <root url="jar://$PROJECT_DIR$/infrastructure/cdk.out/.cache/71fbf6d5df4365d8651cf51f56542b623808ce316a81f09f3b99a0b391f14e45.zip!/" />
+      <root url="jar://$PROJECT_DIR$/infrastructure/cdk.out/.cache/faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip!/" />
+      <root url="jar://$PROJECT_DIR$/infrastructure/cdk.out/.cache/9a1fcb4a7ecba81ad70e9d3fb241f6794497da945dae5f25924e4dd002b65f2d.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
