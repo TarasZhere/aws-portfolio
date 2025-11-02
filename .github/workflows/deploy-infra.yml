@@ -37,8 +37,10 @@ jobs:
         working-directory: infrastructure
         run: npm run test
           
+      - name: Bootstrap App
+        working-directory: infrastructure
+        run: cdk bootstrap
+
       - name: Deploy Infra
         working-directory: infrastructure
-        run: |
-          aws cdk bootstrap
-          aws cdk deploy
+        run: cdk deploy
