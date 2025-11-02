@@ -39,6 +39,10 @@ jobs:
         working-directory: infrastructure
         run: npm run test
         
+      - name: Bootstrap
+        working-directory: infrastructure
+        run: cdk bootstrap
+        
       - name: Deploy Infra
         working-directory: infrastructure
         run: cdk deploy --require-approval=never
