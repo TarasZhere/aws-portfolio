@@ -517,7 +517,6 @@ exports[`Snapshot Test 1`] = `
     "portfoliobucket922B65F0": {
       "DeletionPolicy": "Delete",
       "Properties": {
-        "BucketName": "portfolio-bucket",
         "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,

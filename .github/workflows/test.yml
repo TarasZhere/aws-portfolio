@@ -1,4 +1,4 @@
-name: infrastructure Test
+name: Infrastructure Test
 
 on: workflow_call
 
