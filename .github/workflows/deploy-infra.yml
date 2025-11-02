@@ -20,6 +20,23 @@ jobs:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT }}:role/${{ secrets.AWS_DEPLOY_ROLE }}
           aws-region: us-east-1
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: infrastructure
+        run: npm ci
+
+      - name: Check formatting 
+        working-directory: infrastructure
+        run: npm run fmt-check
+      
+      - name: Snapshot Test 
+        working-directory: infrastructure
+        run: npm run test
+          
       - name: Deploy Infra
         working-directory: infrastructure
         run: |
