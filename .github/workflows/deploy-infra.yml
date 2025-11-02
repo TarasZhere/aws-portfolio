@@ -40,5 +40,5 @@ jobs:
       - name: Deploy Infra
         working-directory: infrastructure
         run: |
-          cdk bootstrap
-          cdk deploy
+          aws cdk bootstrap
+          aws cdk deploy
