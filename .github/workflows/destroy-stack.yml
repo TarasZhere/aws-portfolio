@@ -1,6 +1,6 @@
-name: Redeploy Infrastructure
+name: Destroy Stack
 
-on: workflow_call
+on: workflow_dispatch
 
 permissions:
   id-token: write
@@ -31,18 +31,6 @@ jobs:
           npm ci
           npm i -g aws-cdk
 
-      - name: Check formatting 
+      - name: Destroy Infra
         working-directory: infrastructure
-        run: npm run fmt-check
-      
-      - name: Snapshot Test 
-        working-directory: infrastructure
-        run: npm run test
-        
-      - name: Bootstrap
-        working-directory: infrastructure
-        run: cdk bootstrap
-        
-      - name: Deploy Infra
-        working-directory: infrastructure
-        run: cdk deploy --require-approval=never
+        run: cdk destroy --require-approval=never
