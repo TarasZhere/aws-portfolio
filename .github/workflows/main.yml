@@ -10,7 +10,29 @@ permissions:
   contents: read
 
 jobs:
-  sync_bucket:
+  cdk-gate:
+    name: CDK Diff
+    runs-on: ubuntu-latest
+    outputs:
+      needs-deploy: ${{ steps.status.deploy }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check CDK Changes
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with: 
+          files: infrastructure/**
+      
+      - id: status
+        name: Update Repository Status
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: echo "deploy=true" >> "$GITHUB_OUTPUT"
+
+  sync-bucket:
+    needs: cdk-gate
+    if: needs.cdk-gate.outputs.needs-deploy != 'true'
     name: Sync bucket
     runs-on: ubuntu-latest
     steps:
@@ -26,3 +48,11 @@ jobs:
       - name: Synch Bucket
         run: |
           aws s3 sync ./front-end s3://${{ vars.AWS_BUCKET_NAME }} --delete
+
+  deploy:
+    needs: cdk-gate
+    if: needs.cdk-gate.outputs.needs-deploy == 'true'
+    name: Redeploy Infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/deploy-infra.yml
