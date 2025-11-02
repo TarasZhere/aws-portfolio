@@ -27,7 +27,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: infrastructure
-        run: npm ci
+        run: |
+          npm ci
+          npm i -g aws-cdk
 
       - name: Check formatting 
         working-directory: infrastructure
@@ -36,11 +38,7 @@ jobs:
       - name: Snapshot Test 
         working-directory: infrastructure
         run: npm run test
-          
-      - name: Bootstrap App
-        working-directory: infrastructure
-        run: cdk bootstrap
 
       - name: Deploy Infra
         working-directory: infrastructure
-        run: cdk deploy
+        run: cdk deploy --require-approval=never
