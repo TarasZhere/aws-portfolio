@@ -38,7 +38,7 @@ jobs:
       - name: Snapshot Test 
         working-directory: infrastructure
         run: npm run test
-
+        
       - name: Deploy Infra
         working-directory: infrastructure
         run: cdk deploy --require-approval=never
