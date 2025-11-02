@@ -27,9 +27,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: infrastructure
-        run: |
-          npm ci
-          npm i -g aws-cdk
+        run: npm ci
 
       - name: Check formatting 
         working-directory: infrastructure

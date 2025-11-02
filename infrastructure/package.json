@@ -20,7 +20,7 @@
     "prettier": "^3.5.3",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "@aws-sdk": "latest",
+    "aws-sdk": "latest",
     "typescript": "~5.6.3"
   },
   "dependencies": {
