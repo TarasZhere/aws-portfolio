@@ -3,6 +3,14 @@
 exports[`Snapshot Test 1`] = `
 {
   "Mappings": {
+    "AWSCloudFrontPartitionHostedZoneIdMap": {
+      "aws": {
+        "zoneId": "Z2FDTNDATAQYW2",
+      },
+      "aws-cn": {
+        "zoneId": "Z3RFFRIM2A3IF5",
+      },
+    },
     "LatestNodeRuntimeMap": {
       "af-south-1": {
         "value": "nodejs22.x",
@@ -134,12 +142,7 @@ exports[`Snapshot Test 1`] = `
   },
   "Outputs": {
     "portfoliourilink": {
-      "Value": {
-        "Fn::GetAtt": [
-          "portfoliobucket922B65F0",
-          "WebsiteURL",
-        ],
-      },
+      "Value": "https://taras.click",
     },
   },
   "Parameters": {
@@ -375,15 +378,150 @@ exports[`Snapshot Test 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
+    "MySiteARecord0006790A": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "MySiteDistribution65518FB8",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::FindInMap": [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z038349417XTGZS79FSNC",
+        "Name": "taras.click.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
+    "MySiteCertificateF3A14CCD": {
+      "Properties": {
+        "DomainName": "taras.click",
+        "DomainValidationOptions": [
+          {
+            "DomainName": "taras.click",
+            "HostedZoneId": "Z038349417XTGZS79FSNC",
+          },
+          {
+            "DomainName": "www.taras.click",
+            "HostedZoneId": "Z038349417XTGZS79FSNC",
+          },
+        ],
+        "SubjectAlternativeNames": [
+          "www.taras.click",
+        ],
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "portfolio/MySiteCertificate",
+          },
+        ],
+        "ValidationMethod": "DNS",
+      },
+      "Type": "AWS::CertificateManager::Certificate",
+    },
+    "MySiteDistribution65518FB8": {
+      "Properties": {
+        "DistributionConfig": {
+          "Aliases": [
+            "taras.click",
+            "www.taras.click",
+          ],
+          "DefaultCacheBehavior": {
+            "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+            "Compress": true,
+            "TargetOriginId": "portfolioMySiteDistributionOrigin19A9559BD",
+            "ViewerProtocolPolicy": "redirect-to-https",
+          },
+          "DefaultRootObject": "index.html",
+          "Enabled": true,
+          "HttpVersion": "http2",
+          "IPV6Enabled": true,
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "portfoliobucket922B65F0",
+                  "RegionalDomainName",
+                ],
+              },
+              "Id": "portfolioMySiteDistributionOrigin19A9559BD",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "origin-access-identity/cloudfront/",
+                      {
+                        "Ref": "MySiteOAI8CCA56CA",
+                      },
+                    ],
+                  ],
+                },
+              },
+            },
+          ],
+          "ViewerCertificate": {
+            "AcmCertificateArn": {
+              "Ref": "MySiteCertificateF3A14CCD",
+            },
+            "MinimumProtocolVersion": "TLSv1.2_2021",
+            "SslSupportMethod": "sni-only",
+          },
+        },
+      },
+      "Type": "AWS::CloudFront::Distribution",
+    },
+    "MySiteOAI8CCA56CA": {
+      "Properties": {
+        "CloudFrontOriginAccessIdentityConfig": {
+          "Comment": "Allows CloudFront to reach the bucket",
+        },
+      },
+      "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+    },
+    "MySiteWwwARecord3D2419DB": {
+      "Properties": {
+        "AliasTarget": {
+          "DNSName": {
+            "Fn::GetAtt": [
+              "MySiteDistribution65518FB8",
+              "DomainName",
+            ],
+          },
+          "HostedZoneId": {
+            "Fn::FindInMap": [
+              "AWSCloudFrontPartitionHostedZoneIdMap",
+              {
+                "Ref": "AWS::Partition",
+              },
+              "zoneId",
+            ],
+          },
+        },
+        "HostedZoneId": "Z038349417XTGZS79FSNC",
+        "Name": "www.taras.click.",
+        "Type": "A",
+      },
+      "Type": "AWS::Route53::RecordSet",
+    },
     "portfoliobucket922B65F0": {
       "DeletionPolicy": "Delete",
       "Properties": {
-        "BucketName": "portfolio-bucket-us-east-2",
         "PublicAccessBlockConfiguration": {
-          "BlockPublicAcls": false,
-          "BlockPublicPolicy": false,
-          "IgnorePublicAcls": false,
-          "RestrictPublicBuckets": false,
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
         },
         "Tags": [
           {
@@ -395,12 +533,6 @@ exports[`Snapshot Test 1`] = `
             "Value": "true",
           },
         ],
-        "VersioningConfiguration": {
-          "Status": "Enabled",
-        },
-        "WebsiteConfiguration": {
-          "IndexDocument": "index.html",
-        },
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Delete",
@@ -431,27 +563,6 @@ exports[`Snapshot Test 1`] = `
         },
         "PolicyDocument": {
           "Statement": [
-            {
-              "Action": "s3:GetObject",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": "*",
-              },
-              "Resource": {
-                "Fn::Join": [
-                  "",
-                  [
-                    {
-                      "Fn::GetAtt": [
-                        "portfoliobucket922B65F0",
-                        "Arn",
-                      ],
-                    },
-                    "/*",
-                  ],
-                ],
-              },
-            },
             {
               "Action": [
                 "s3:PutBucketPolicy",
@@ -490,6 +601,70 @@ exports[`Snapshot Test 1`] = `
                   ],
                 },
               ],
+            },
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "MySiteOAI8CCA56CA",
+                    "S3CanonicalUserId",
+                  ],
+                },
+              },
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "portfoliobucket922B65F0",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "portfoliobucket922B65F0",
+                          "Arn",
+                        ],
+                      },
+                      "/*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "CanonicalUser": {
+                  "Fn::GetAtt": [
+                    "MySiteOAI8CCA56CA",
+                    "S3CanonicalUserId",
+                  ],
+                },
+              },
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "portfoliobucket922B65F0",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
+                  ],
+                ],
+              },
             },
           ],
           "Version": "2012-10-17",

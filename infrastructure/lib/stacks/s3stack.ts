@@ -22,11 +22,10 @@ export class WebsiteStack extends Stack {
     super(scope, id, props)
     const self: Construct = this
     const domainName = 'taras.click'
-    const hostedZone = HostedZone.fromHostedZoneId(
-      this,
-      'HostedZone',
-      'Z038349417XTGZS79FSNC',
-    )
+    const hostedZone = HostedZone.fromHostedZoneAttributes(this, 'HostedZone', {
+      hostedZoneId: 'Z038349417XTGZS79FSNC',
+      zoneName: domainName,
+    })
 
     const certificate = new Certificate(this, 'MySiteCertificate', {
       domainName,
