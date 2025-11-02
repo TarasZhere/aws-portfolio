@@ -1,7 +1,6 @@
 name: Redeploy Infrastructure
 
-on:
-  workflow_call:
+on: workflow_dispatch
 
 permissions:
   id-token: write
@@ -24,4 +23,5 @@ jobs:
       - name: Deploy Infra
         working-directory: infrastructure
         run: |
-          aws cdk deploy
+          cdk bootstrap
+          cdk deploy
