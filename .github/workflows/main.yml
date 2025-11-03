@@ -25,9 +25,8 @@ jobs:
         with: 
           files: infrastructure/**
       
-      - id: status
+      - id: Status
         name: Update Repository Status
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           if [ "${{ steps.changed-files.outputs.any_changed }}" = "true" ]; then
             echo "deploy=true" >> "$GITHUB_OUTPUT"
