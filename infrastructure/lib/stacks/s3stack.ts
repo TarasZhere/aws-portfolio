@@ -72,6 +72,7 @@ export class WebsiteStack extends Stack {
       destinationBucket: s3Bucket,
     })
 
+    // Website output link
     new CfnOutput(self, `${id}-uri-link`, {
       value: `https://${domainName}`,
     })

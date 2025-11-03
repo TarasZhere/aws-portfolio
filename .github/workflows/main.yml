@@ -56,7 +56,4 @@ jobs:
   deploy:
     needs: cdk-gate
     if: needs.cdk-gate.outputs.needs-deploy == 'true'
-    name: Redeploy Infrastructure
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/deploy-infra.yml
+    uses: ./.github/workflows/deploy-infra.yml
