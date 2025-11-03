@@ -57,3 +57,4 @@ jobs:
     needs: cdk-gate
     if: needs.cdk-gate.outputs.needs-deploy == 'true'
     uses: ./.github/workflows/deploy-infra.yml
+    secrets: inherit
