@@ -28,11 +28,16 @@ jobs:
       - id: status
         name: Update Repository Status
         if: steps.changed-files.outputs.any_changed == 'true'
-        run: echo "deploy=true" >> "$GITHUB_OUTPUT"
+        run: |
+          if [ "${{ steps.changed-files.outputs.any_changed }}" = "true" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+          fi
 
   sync-bucket:
     needs: cdk-gate
-    if: needs.cdk-gate.outputs.needs-deploy != 'true'
+    if: needs.cdk-gate.outputs.needs-deploy == 'false'
     name: Sync bucket
     runs-on: ubuntu-latest
     steps:
