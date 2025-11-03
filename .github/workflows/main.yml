@@ -14,7 +14,7 @@ jobs:
     name: CDK Diff
     runs-on: ubuntu-latest
     outputs:
-      needs-deploy: ${{ steps.status.deploy }}
+      needs-deploy: ${{ steps.status.outputs.deploy }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
